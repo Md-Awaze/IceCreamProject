@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Scoop - Premium Ice Cream</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Simply Scoop</h1>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h2 class="dripping-text">Indulge in Pure Delight</h2>
+            <p>Experience the finest artisanal ice cream crafted with love</p>
+        </section>
+
+        <section id="flavors" class="ice-cream-grid">
+            <div class="card" data-ice-cream="trinity">
+                <div class="card-image-container">
+                    <img src="images/Trinity.jpg" alt="Trinity Ice Cream">
+                </div>
+                <div class="card-content">
+                    <h3>Trinity</h3>
+                    <p>A perfect harmony of chocolate, vanilla, and strawberry layers in a crispy waffle cone</p>
+                </div>
+            </div>
+            <div class="card" data-ice-cream="vanilla">
+                <div class="card-image-container">
+                    <img src="images/funTimeVanilla.jpg" alt="Fun Time Vanilla">
+                </div>
+                <div class="card-content">
+                    <h3>Fun Time Vanilla</h3>
+                    <p>Creamy vanilla soft-serve perfection with our signature swirl technique</p>
+                </div>
+            </div>
+            <div class="card" data-ice-cream="fairy">
+                <div class="card-image-container">
+                    <img src="images/FairyPink.jpg" alt="Fairy Pink Special">
+                </div>
+                <div class="card-content">
+                    <h3>Fairy Pink</h3>
+                    <p>Pink strawberry ice cream topped with colorful sprinkles and a chocolate wafer stick</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div class="modal" id="ice-cream-modal">
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+                <div class="modal-image">
+                    <img src="" alt="Ice Cream">
+                </div>
+                <div class="modal-text">
+                    <h2></h2>
+                    <p></p>
+                    <div class="modal-details">
+                        <h3>Ingredients</h3>
+                        <ul id="ingredients-list"></ul>
+                        <h3>Price</h3>
+                        <p class="price"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Visit Us</h4>
+                <p>123 Ice Cream Lane</p>
+                <p>Sweet Town, ST 12345</p>
+            </div>
+            <div class="footer-section">
+                <h4>Hours</h4>
+                <p>Mon-Fri: 11am - 10pm</p>
+                <p>Sat-Sun: 10am - 11pm</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@simplyscoop.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Simply Scoop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
