@@ -9,126 +9,120 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 	</head>
-	<body class="bg-pink-50">
+	<body>
 		<header>
-			<nav class="bg-white shadow-md">
-				<div class="container mx-auto px-4 py-3 flex justify-between items-center">
-					<div class="logo">
-						<h1 class="text-2xl font-bold text-pink-600">Simply Scoop</h1>
-					</div>
-					<div class="nav-links flex space-x-6">
-						<a href="index.html" class="text-gray-700 hover:text-pink-600">Home</a>
-						<a href="custom-ice-cream.html" class="text-gray-700 hover:text-pink-600">Create Your Own</a>
-						<a href="track-order.html" class="text-gray-700 hover:text-pink-600">Track Order</a>
-						<a href="cart.html" class="relative">
-							<i class="fas fa-shopping-cart text-gray-700 hover:text-pink-600"></i>
-							<span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
-						</a>
-					</div>
+			<nav>
+				<div class="logo">
+					<h1>Simply Scoop</h1>
+				</div>
+				<div class="nav-links">
+					<a href="index.html" class="active">Home</a>
+					<a href="custom-ice-cream.html">Create Your Own</a>
 				</div>
 			</nav>
 		</header>
 
-		<main class="container mx-auto px-4 py-8">
-			<section id="hero" class="text-center mb-12">
-				<h2 class="text-4xl font-bold text-pink-600 mb-4">Indulge in Pure Delight</h2>
-				<p class="text-gray-600 text-lg">Experience the finest artisanal ice cream crafted with love</p>
+		<main>
+			<section id="hero">
+				<h2 class="dripping-text">Indulge in Pure Delight</h2>
+				<p>
+					Experience the finest artisanal ice cream crafted with love
+				</p>
+				<a href="custom-ice-cream.html" class="cta-button"
+					>Design Your Perfect Ice Cream</a
+				>
 			</section>
 
-			<section id="flavors" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<!-- Product cards will be dynamically added here -->
+			<section id="flavors" class="ice-cream-grid">
+				<div class="card" data-ice-cream="trinity">
+					<div class="card-image-container">
+						<img src="images/Trinity.jpg" alt="Trinity Ice Cream" />
+					</div>
+					<div class="card-content">
+						<h3>Trinity</h3>
+						<p>
+							A perfect harmony of chocolate, vanilla, and
+							strawberry layers in a crispy waffle cone
+						</p>
+					</div>
+				</div>
+				<div class="card" data-ice-cream="vanilla">
+					<div class="card-image-container">
+						<img
+							src="images/funTimeVanilla.jpg"
+							alt="Fun Time Vanilla"
+						/>
+					</div>
+					<div class="card-content">
+						<h3>Fun Time Vanilla</h3>
+						<p>
+							Creamy vanilla soft-serve perfection with our
+							signature swirl technique
+						</p>
+					</div>
+				</div>
+				<div class="card" data-ice-cream="fairy">
+					<div class="card-image-container">
+						<img
+							src="images/FairyPink.jpg"
+							alt="Fairy Pink Special"
+						/>
+					</div>
+					<div class="card-content">
+						<h3>Fairy Pink</h3>
+						<p>
+							Pink strawberry ice cream topped with colorful
+							sprinkles and a chocolate wafer stick
+						</p>
+					</div>
+				</div>
 			</section>
+
+			<!-- Modal -->
+			<div class="modal" id="ice-cream-modal">
+				<div class="modal-content">
+					<button class="modal-close">&times;</button>
+					<div class="modal-image">
+						<img src="" alt="Ice Cream" />
+					</div>
+					<div class="modal-text">
+						<h2></h2>
+						<p></p>
+						<div class="modal-details">
+							<h3>Ingredients</h3>
+							<ul id="ingredients-list"></ul>
+							<h3>Price</h3>
+							<p class="price"></p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 
-		<footer class="bg-white mt-12">
-			<div class="container mx-auto px-4 py-8">
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-					<div class="footer-section">
-						<h4 class="font-bold text-gray-800 mb-2">Visit Us</h4>
-						<p class="text-gray-600">123 Ice Cream Lane</p>
-						<p class="text-gray-600">Sweet Town, ST 12345</p>
-					</div>
-					<div class="footer-section">
-						<h4 class="font-bold text-gray-800 mb-2">Hours</h4>
-						<p class="text-gray-600">Mon-Fri: 11am - 10pm</p>
-						<p class="text-gray-600">Sat-Sun: 10am - 11pm</p>
-					</div>
-					<div class="footer-section">
-						<h4 class="font-bold text-gray-800 mb-2">Contact</h4>
-						<p class="text-gray-600">Phone: (555) 123-4567</p>
-						<p class="text-gray-600">Email: info@simplyscoop.com</p>
-					</div>
+		<footer>
+			<div class="footer-content">
+				<div class="footer-section">
+					<h4>Visit Us</h4>
+					<p>123 Ice Cream Lane</p>
+					<p>Sweet Town, ST 12345</p>
 				</div>
-				<div class="text-center mt-8 pt-8 border-t border-gray-200">
-					<p class="text-gray-600">&copy; 2024 Simply Scoop. All rights reserved.</p>
+				<div class="footer-section">
+					<h4>Hours</h4>
+					<p>Mon-Fri: 11am - 10pm</p>
+					<p>Sat-Sun: 10am - 11pm</p>
 				</div>
+				<div class="footer-section">
+					<h4>Contact</h4>
+					<p>Phone: (555) 123-4567</p>
+					<p>Email: info@simplyscoop.com</p>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2024 Simply Scoop. All rights reserved.</p>
 			</div>
 		</footer>
 
-		<script src="cart.js"></script>
-		<script>
-			// Sample ice cream products
-			const products = [
-				{
-					id: 1,
-					name: 'Trinity',
-					description: 'A perfect harmony of chocolate, vanilla, and strawberry layers in a crispy waffle cone',
-					price: 5.99,
-					image: 'images/Trinity.jpg'
-				},
-				{
-					id: 2,
-					name: 'Fun Time Vanilla',
-					description: 'Creamy vanilla soft-serve perfection with our signature swirl technique',
-					price: 4.99,
-					image: 'images/funTimeVanilla.jpg'
-				},
-				{
-					id: 3,
-					name: 'Fairy Pink',
-					description: 'Pink strawberry ice cream topped with colorful sprinkles and a chocolate wafer stick',
-					price: 6.99,
-					image: 'images/FairyPink.jpg'
-				}
-			];
-
-			// Render product cards
-			const flavorsSection = document.getElementById('flavors');
-			products.forEach(product => {
-				const card = document.createElement('div');
-				card.className = 'bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300';
-				card.innerHTML = `
-					<div class="card-image-container h-64 overflow-hidden">
-						<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
-					</div>
-					<div class="p-6">
-						<h3 class="text-xl font-bold text-gray-800 mb-2">${product.name}</h3>
-						<p class="text-gray-600 mb-4">${product.description}</p>
-						<div class="flex justify-between items-center">
-							<span class="text-pink-600 font-bold">$${product.price.toFixed(2)}</span>
-							<button onclick="addToCart(${product.id})" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg transition duration-300">
-								Add to Cart
-							</button>
-						</div>
-					</div>
-				`;
-				flavorsSection.appendChild(card);
-			});
-
-			// Add to cart function
-			function addToCart(productId) {
-				const product = products.find(p => p.id === productId);
-				if (product) {
-					cart.addItem(product);
-					showToast(`${product.name} added to cart!`);
-				}
-			}
-
-			// Initialize cart count
-			cart.updateCartCount();
-		</script>
+		<script src="script.js"></script>
 	</body>
 </html>
