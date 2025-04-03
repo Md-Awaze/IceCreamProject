@@ -5,20 +5,26 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Simply Scoop - Premium Ice Cream</title>
 		<link rel="stylesheet" href="styles.css" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-			rel="stylesheet"
-		/>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<header>
-			<nav>
-				<div class="logo">
-					<h1>Simply Scoop</h1>
-				</div>
-				<div class="nav-links">
-					<a href="index.html" class="active">Home</a>
-					<a href="custom-ice-cream.html">Create Your Own</a>
+		<header class="fixed top-0 left-0 right-0 z-50">
+			<nav class="bg-transparent">
+				<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+					<div class="logo">
+						<h1 class="text-2xl font-bold text-pink-600">Simply Scoop</h1>
+					</div>
+					<div class="nav-links flex space-x-8">
+						<a href="index.html" class="text-pink-600 hover:text-pink-700 font-semibold active">Home</a>
+						<a href="custom-ice-cream.html" class="text-pink-600 hover:text-pink-700 font-semibold">Create Your Own</a>
+						<a href="track-order.html" class="text-pink-600 hover:text-pink-700 font-semibold">Track Order</a>
+						<a href="cart.html" class="relative text-pink-600 hover:text-pink-700">
+							<i class="fas fa-shopping-cart"></i>
+							<span id="cart-count" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+						</a>
+					</div>
 				</div>
 			</nav>
 		</header>
@@ -36,8 +42,8 @@
 
 			<section id="flavors" class="ice-cream-grid">
 				<div class="card" data-ice-cream="trinity">
-					<div class="card-image-container">
-						<img src="images/Trinity.jpg" alt="Trinity Ice Cream" />
+					<div class="card-image-container cursor-pointer" onclick="openModal('trinity')">
+						<img src="images/Trinity.jpg" alt="Trinity Ice Cream" class="hover:opacity-75 transition duration-300" />
 					</div>
 					<div class="card-content">
 						<h3>Trinity</h3>
@@ -45,13 +51,20 @@
 							A perfect harmony of chocolate, vanilla, and
 							strawberry layers in a crispy waffle cone
 						</p>
+						<div class="flex justify-between items-center mt-4">
+							<span class="text-xl font-bold text-pink-600">$5.99</span>
+							<button onclick="addToCart('trinity')" class="add-to-cart-btn bg-pink-500 hover:bg-pink-600 text-white rounded-full p-2 transition duration-300">
+								<i class="fas fa-cart-plus"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="card" data-ice-cream="vanilla">
-					<div class="card-image-container">
+					<div class="card-image-container cursor-pointer" onclick="openModal('vanilla')">
 						<img
 							src="images/funTimeVanilla.jpg"
 							alt="Fun Time Vanilla"
+							class="hover:opacity-75 transition duration-300"
 						/>
 					</div>
 					<div class="card-content">
@@ -60,13 +73,20 @@
 							Creamy vanilla soft-serve perfection with our
 							signature swirl technique
 						</p>
+						<div class="flex justify-between items-center mt-4">
+							<span class="text-xl font-bold text-pink-600">$4.99</span>
+							<button onclick="addToCart('vanilla')" class="add-to-cart-btn bg-pink-500 hover:bg-pink-600 text-white rounded-full p-2 transition duration-300">
+								<i class="fas fa-cart-plus"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="card" data-ice-cream="fairy">
-					<div class="card-image-container">
+					<div class="card-image-container cursor-pointer" onclick="openModal('fairy')">
 						<img
 							src="images/FairyPink.jpg"
 							alt="Fairy Pink Special"
+							class="hover:opacity-75 transition duration-300"
 						/>
 					</div>
 					<div class="card-content">
@@ -75,6 +95,12 @@
 							Pink strawberry ice cream topped with colorful
 							sprinkles and a chocolate wafer stick
 						</p>
+						<div class="flex justify-between items-center mt-4">
+							<span class="text-xl font-bold text-pink-600">$6.49</span>
+							<button onclick="addToCart('fairy')" class="add-to-cart-btn bg-pink-500 hover:bg-pink-600 text-white rounded-full p-2 transition duration-300">
+								<i class="fas fa-cart-plus"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -123,6 +149,7 @@
 			</div>
 		</footer>
 
+		<script src="cart.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>

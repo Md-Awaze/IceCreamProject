@@ -1,3 +1,6 @@
+// Initialize cart
+const cart = new Cart();
+
 // Ice cream details
 const iceCreamDetails = {
     trinity: {
@@ -39,7 +42,6 @@ const iceCreamDetails = {
 // Modal functionality
 const modal = document.getElementById('ice-cream-modal');
 const modalClose = modal.querySelector('.modal-close');
-const cards = document.querySelectorAll('.card');
 
 function openModal(iceCreamType) {
     const details = iceCreamDetails[iceCreamType];
@@ -64,6 +66,26 @@ function openModal(iceCreamType) {
     
     price.textContent = details.price;
 
+    // Add to cart button
+    const addToCartBtn = modal.querySelector('#add-to-cart-btn') || document.createElement('button');
+    if (!addToCartBtn.id) {
+        addToCartBtn.id = 'add-to-cart-btn';
+        addToCartBtn.className = 'bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg mt-4 w-full transition duration-300';
+        addToCartBtn.textContent = 'Add to Cart';
+        modal.querySelector('.modal-text').appendChild(addToCartBtn);
+    }
+
+    addToCartBtn.onclick = () => {
+        const priceValue = parseFloat(details.price.replace('$', ''));
+        cart.addItem({
+            id: iceCreamType,
+            name: details.name,
+            price: priceValue,
+            image: modalImage.src
+        });
+        showToast('Added to cart!');
+    };
+
     // Show modal with animation
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -75,21 +97,22 @@ function closeModal() {
 }
 
 // Event listeners
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-        const iceCreamType = card.dataset.iceCream;
-        openModal(iceCreamType);
-    });
-});
-
 modalClose.addEventListener('click', closeModal);
+
+// Close modal when clicking outside
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
         closeModal();
     }
 });
 
-// Close modal on escape key
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+    }
+});
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeModal();
@@ -150,4 +173,20 @@ const createMobileMenu = () => {
 };
 
 // Initialize mobile menu
-createMobileMenu(); 
+function createMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+}
+
+// Initialize mobile menu when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    createMobileMenu();
+});
