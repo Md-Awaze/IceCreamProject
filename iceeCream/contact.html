@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Simply Scoop</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: hsl(298, 59%, 11%); /* Soft pink background */
+        }
+        
+        .logo h1 {
+            color: #008080; /* Teal blue */
+        }
+        .nav-links a:hover {
+            color: #9d4edd; /* Purple hover */
+        }
+        .bg-purple-600 {
+            background-color: #9d4edd; /* Soft purple */
+        }
+        .bg-purple-700 {
+            background-color: #7e22ce; /* Darker purple */
+        }
+        .bg-white {
+            background-color: #ffffff; /* White for the forms */
+        }
+        .text-purple-600 {
+            color: #9d4edd; /* Purple text */
+        }
+        .text-yellow-500 {
+            color: #fbbf24; /* Yellow for the stars */
+        }
+        .footer-content {
+            background-color: #9d4edd; /* Purple footer */
+        }
+        #contact-form, #rate-us {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #ice-cream-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px; /* Space between images */
+            flex-wrap: wrap; /* Allow images to wrap if needed */
+        }
+        #ice-cream-image img {
+            width: 150px; /* Adjust width as needed */
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ec4899; /* Pink border */
+        }
+        .star-rating label {
+            cursor: pointer;
+            font-size: 2rem;
+            color: gray; /* Default gray for unclicked stars */
+        }
+        .star-rating input:checked ~ label {
+            color: #fbbf24; /* Yellow color when selected */
+        }
+    </style>
+</head>
+<body>
+    <header class="fixed top-0 left-0 right-0 z-50">
+        <nav class="bg-transparent">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="logo">
+                    <h1 class="text-2xl font-bold">Simply Scoop</h1>
+                </div>
+                <div class="nav-links flex space-x-8">
+                    <a href="index.html" class="text-purple-600 hover:text-purple-700 font-semibold">Home</a>
+                    <a href="custom-ice-cream.html" class="text-purple-600 hover:text-purple-700 font-semibold">Create Your Own</a>
+                    <a href="track-order.html" class="text-purple-600 hover:text-purple-700 font-semibold">Track Order</a>
+                    <a href="cart.html" class="text-purple-600 hover:text-purple-700 font-semibold">Cart</a>
+                    <a href="contact.html" class="text-purple-600 hover:text-purple-700 font-semibold active">Contact Us</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-28 pb-16 px-6">
+        <h2 class="text-3xl font-semibold text-purple-600 text-center mb-8">Scoop Us a Message & Rate Us! </h2>
+
+        <!-- Split Layout Section -->
+        <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
+            
+            <!-- Contact Form Section (Left side) -->
+            <section id="contact-form" class="w-full md:w-1/2">
+                <h3 class="text-2xl font-bold text-purple-600 mb-6">We'd love to hear from you!</h3>
+                <form action="#" method="POST" class="space-y-6">
+                    <!-- Name -->
+                    <div class="flex flex-col">
+                        <label for="name" class="text-lg font-semibold text-gray-700">Full Name</label>
+                        <input type="text" id="name" name="name" class="p-2 border border-gray-300 rounded-lg" required />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex flex-col">
+                        <label for="email" class="text-lg font-semibold text-gray-700">Email Address</label>
+                        <input type="email" id="email" name="email" class="p-2 border border-gray-300 rounded-lg" required />
+                    </div>
+
+                    <!-- Message -->
+                    <div class="flex flex-col">
+                        <label for="message" class="text-lg font-semibold text-gray-700">Your Message</label>
+                        <textarea id="message" name="message" rows="4" class="p-2 border border-gray-300 rounded-lg" required></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" class="w-full bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition duration-300">Send Message</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Rate Us Section (Right side) -->
+            <section id="rate-us" class="w-full md:w-1/2">
+                <h3 class="text-2xl font-bold text-purple-600 mb-6">Rate Us</h3>
+                <form action="#" method="POST" class="space-y-6">
+                    <!-- Star Rating -->
+                    <div class="flex flex-col">
+                        <label for="star-rating" class="text-lg font-semibold text-gray-700">How would you rate your experience?</label>
+                        <div id="star-rating" class="flex space-x-2 star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" class="hidden" onclick="setRating(5)" />
+                            <label for="star5">★</label>
+                            <input type="radio" id="star4" name="rating" value="4" class="hidden" onclick="setRating(4)" />
+                            <label for="star4">★</label>
+                            <input type="radio" id="star3" name="rating" value="3" class="hidden" onclick="setRating(3)" />
+                            <label for="star3">★</label>
+                            <input type="radio" id="star2" name="rating" value="2" class="hidden" onclick="setRating(2)" />
+                            <label for="star2">★</label>
+                            <input type="radio" id="star1" name="rating" value="1" class="hidden" onclick="setRating(1)" />
+                            <label for="star1">★</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" class="w-full bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition duration-300">Submit Rating</button>
+                    </div>
+                </form>
+
+                <!-- Ice Cream Image Section -->
+                <section id="ice-cream-image" class="text-center mt-8">
+                    <img src="images/ice.avif" alt="Cute Ice Cream" class="w-48 h-auto rounded-lg shadow-xl border-4 border-pink-400" />
+                    <img src="images/ICE2.jpeg" alt="Ice Cream 2" class="w-48 h-auto rounded-lg shadow-xl border-4 border-pink-400" />
+                    <img src="images/ICE3.jpeg" alt="Ice Cream 3" class="w-48 h-auto rounded-lg shadow-xl border-4 border-pink-400" />
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content py-8 px-6 bg-purple-800 text-white text-center">
+            <p>&copy; 2024 Simply Scoop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="cart.js"></script>
+    <script>
+        function setRating(rating) {
+            // Get all radio inputs
+            let stars = document.querySelectorAll('.star-rating input');
+            let labels = document.querySelectorAll('.star-rating label');
+
+            // Reset all labels to gray
+            labels.forEach(label => {
+                label.style.color = 'gray';
+            });
+
+            // Set the selected stars to yellow
+            for (let i = 0; i < rating; i++) {
+                labels[i].style.color = '#fbbf24'; // Yellow color for selected stars
+            }
+        }
+    </script>
+</body>
+</html>
