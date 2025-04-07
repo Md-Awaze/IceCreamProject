@@ -76,13 +76,8 @@ function openModal(iceCreamType) {
     }
 
     addToCartBtn.onclick = () => {
-        const priceValue = parseFloat(details.price.replace('$', ''));
-        cart.addItem({
-            id: iceCreamType,
-            name: details.name,
-            price: priceValue,
-            image: modalImage.src
-        });
+        cart.addItem(iceCreamType);
+        closeModal();
         showToast('Added to cart!');
     };
 

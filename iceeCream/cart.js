@@ -3,52 +3,91 @@ class Cart {
 	constructor() {
 		this.items = JSON.parse(localStorage.getItem("cart")) || [];
 		this.orders = JSON.parse(localStorage.getItem("orders")) || [];
+		this.funQuotes = [
+			"Stay cool – your scoop is on its way! 🍦",
+			"Life is like ice cream, enjoy it before it melts! 🌞",
+			"You're getting closer to ice cream happiness! 🎉",
+			"Sprinkles of joy coming your way! ✨",
+			"Your sweet treat is being prepared with love! 💝"
+		];
 		this.updateCartCount();
 	}
 
-	addItem(id) {
-		const iceCreamDetails = {
-			trinity: {
-				name: "Trinity",
-				price: 5.99,
-				image: "images/Trinity.jpg",
-			},
-			vanilla: {
-				name: "Fun Time Vanilla",
-				price: 4.99,
-				image: "images/funTimeVanilla.jpg",
-			},
-			fairy: {
-				name: "Fairy Pink",
-				price: 6.49,
-				image: "images/FairyPink.jpg",
-			},
-			custom: {
-				name: "Custom Ice Cream",
-				price: 10.99,
-				image: "images/funTimeVanilla.jpg",
-			},
-		};
-		console.log("kasmdkasmdkasmdksamdkmadaksdmmkasd");
-		const details = iceCreamDetails[id];
-		if (!details) return;
+	addItem(itemData, customOptions = null) {
+		// Handle both object and id parameter formats
+		let id, name, price, image;
+		
+		if (typeof itemData === 'object') {
+			// Handle object format from home page
+			id = itemData.id;
+			name = itemData.name;
+			price = parseFloat(typeof itemData.price === 'string' ? 
+				itemData.price.replace('$', '') : itemData.price);
+			image = itemData.image;
+		} else {
+			// Handle id format from custom page
+			id = itemData;
+			const iceCreamDetails = {
+				trinity: {
+					name: "Trinity",
+					price: 5.99,
+					image: "images/Trinity.jpg",
+				},
+				vanilla: {
+					name: "Fun Time Vanilla",
+					price: 4.99,
+					image: "images/funTimeVanilla.jpg",
+				},
+				fairy: {
+					name: "Fairy Pink",
+					price: 6.49,
+					image: "images/FairyPink.jpg",
+				},
+				custom: {
+					name: "Custom Ice Cream",
+					price: 10.99,
+					image: "images/funTimeVanilla.jpg",
+				},
+			};
+			const details = iceCreamDetails[id];
+			if (!details) return;
+			name = details.name;
+			price = details.price;
+			image = details.image;
+		}
 
-		const existingItem = this.items.find((item) => item.id === id);
+		// Find existing item
+		const existingItem = this.items.find((item) => {
+			if (id === 'custom' && customOptions) {
+				return item.id === id && 
+					   item.customOptions?.flavor === customOptions.flavor &&
+					   item.customOptions?.cone === customOptions.cone &&
+					   JSON.stringify(item.customOptions?.toppings) === JSON.stringify(customOptions.toppings);
+			}
+			return item.id === id;
+		});
+
 		if (existingItem) {
 			existingItem.quantity += 1;
 		} else {
-			this.items.push({
+			const newItem = {
 				id: id,
-				name: details.name,
-				price: details.price,
-				image: details.image,
+				name: customOptions?.name || name,
+				price: customOptions ? 10.99 + (customOptions.toppings?.length || 0) * 0.50 : price,
+				image: image,
 				quantity: 1,
-			});
+			};
+			
+			if (customOptions) {
+				newItem.customOptions = customOptions;
+			}
+			
+			this.items.push(newItem);
 		}
 
 		this.saveCart();
 		this.updateCartCount();
-		this.showToast(`Added ${details.name} to cart!`);
+		this.showToast(`Added ${name} to cart!`);
 	}
 
 	removeItem(id) {
@@ -135,23 +174,24 @@ class Cart {
 
 		const orderNumber = Math.floor(10000 + Math.random() * 90000);
 		const now = new Date();
-		const estimatedMinutes = Math.floor(5 + Math.random() * 6); // Random between 5-10 minutes
+		const estimatedMinutes = Math.floor(5 + Math.random() * 11); // Random between 5-15 minutes
+		const randomQuote = this.funQuotes[Math.floor(Math.random() * this.funQuotes.length)];
 
 		const order = {
 			id: `SCOOP${orderNumber}`,
 			items: [...this.items],
 			total: this.getTotal(),
-			status: "Processing",
+			status: "Preparing",
 			createdAt: now.toISOString(),
 			estimatedMinutes: estimatedMinutes,
 			estimatedTime: `${estimatedMinutes} minutes`,
 			orderTime: this.formatTime(now),
+			funQuote: randomQuote
 		};
 
 		// Save order to localStorage
-		const orders = JSON.parse(localStorage.getItem("orders")) || [];
-		orders.push(order);
-		localStorage.setItem("orders", JSON.stringify(orders));
+		this.orders.push(order);
+		localStorage.setItem("orders", JSON.stringify(this.orders));
 
 		// Clear the cart
 		this.clearCart();
@@ -171,49 +211,60 @@ class Cart {
 	}
 
 	updateOrderStatus(orderId) {
-		const orders = JSON.parse(localStorage.getItem("orders")) || [];
-		const order = orders.find((order) => order.id === orderId);
-
+		const order = this.orders.find((order) => order.id === orderId);
 		if (!order) return null;
 
-		const statuses = [
-			"Processing",
-			"In Progress",
-			"Ready for Pickup",
-			"Completed",
-		];
 		const createdAt = new Date(order.createdAt);
 		const now = new Date();
 		const minutesPassed = Math.floor((now - createdAt) / 1000 / 60);
 
 		// Update status based on time passed
-		if (minutesPassed < 5) {
-			order.status = statuses[0];
-		} else if (minutesPassed < 10) {
-			order.status = statuses[1];
-		} else if (minutesPassed < 15) {
-			order.status = statuses[2];
+		if (minutesPassed > 30) {
+			order.status = "Delayed";
+		} else if (minutesPassed > 15) {
+			order.status = "Ready for Pickup";
+		} else if (minutesPassed > 10) {
+			order.status = "Almost Ready";
+		} else if (minutesPassed > 5) {
+			order.status = "In Progress";
 		} else {
-			order.status = statuses[3];
+			order.status = "Preparing";
 		}
 
-		// Update estimated time
-		const remainingMinutes = Math.max(
-			0,
-			order.estimatedMinutes - minutesPassed
-		);
-		order.estimatedTime =
-			remainingMinutes > 0 ? `${remainingMinutes} minutes` : "Ready now";
-		order.orderTime = this.formatTime(createdAt);
+		// Update estimated time display
+		if (order.status === "Delayed") {
+			order.estimatedTime = "Delayed - We apologize for the wait";
+		} else if (order.status === "Ready for Pickup") {
+			order.estimatedTime = "Ready Now!";
+		} else {
+			const remainingMinutes = Math.max(0, order.estimatedMinutes - minutesPassed);
+			order.estimatedTime = remainingMinutes <= 0 ? "Any minute now!" : `${remainingMinutes} minutes`;
+		}
 
-		localStorage.setItem("orders", JSON.stringify(orders));
+		localStorage.setItem("orders", JSON.stringify(this.orders));
 		return order;
+	}
+
+	getOrderDetails(orderId) {
+		const order = this.getOrder(orderId);
+		if (!order) return null;
+
+		const orderDate = new Date(order.createdAt);
+		return {
+			...order,
+			formattedDate: orderDate.toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}),
+			formattedTime: this.formatTime(orderDate)
+		};
 	}
 }
 
 // Initialize cart and make it globally available
-const cart = new Cart();
-window.cart = cart;
+window.cart = new Cart();
 
 // Global functions
 window.addToCart = function (id) {
